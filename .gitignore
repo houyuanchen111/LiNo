@@ -3,5 +3,7 @@ __pycache__/
 *$py.class
 .vscode/*
 *.sh
-
+.data/*
+.demo/*
+.weights/*
 
