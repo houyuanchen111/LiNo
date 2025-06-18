@@ -293,11 +293,11 @@ For example:
 ```bash
 |-- data
 	|-- Real_data
-	Your_Object_Name 
-        ├── mask.png (optional)
-        ├── L_1.jpg
-        ├── L_2.jpg
-        └── ...
+    Your_Object_Name 
+          ├── mask.png (optional)
+          ├── L_1.jpg
+          ├── L_2.jpg
+          └── ...
 ```
  `mask.png` is optional. If needed, it can be generated using [Konstantin Sofiiuk's software](https://github.com/SamsungLabs/ritm_interactive_segmentation).
 
