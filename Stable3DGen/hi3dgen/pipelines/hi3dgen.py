@@ -92,21 +92,11 @@ class Hi3DGenPipeline(Pipeline):
         """
         Initialize the image conditioning model.
         """
-        dinov2_model = torch.hub.load(
-        repo_or_dir="/share/project/cwm/houyuan.chen/Stable3DGen/dinov2",
-        model=name,
-        source='local',         # <--- 这是最关键的修改
-        pretrained=False
 
-        )
-        dinov2_weight = torch.load("/share/project/cwm/houyuan.chen/Stable3DGen/dinov2_vitl14_reg4_pretrain.pth")
-        dinov2_model.load_state_dict(dinov2_weight)
-
-
-        # try:
-        #     dinov2_model = torch.hub.load(os.path.join(torch.hub.get_dir(), 'facebookresearch_dinov2_main'), name, source='local',pretrained=True)
-        # except:
-        #     dinov2_model = torch.hub.load('facebookresearch/dinov2', name, pretrained=True)
+        try:
+            dinov2_model = torch.hub.load(os.path.join(torch.hub.get_dir(), 'facebookresearch_dinov2_main'), name, source='local',pretrained=True)
+        except:
+            dinov2_model = torch.hub.load('facebookresearch/dinov2', name, pretrained=True)
         dinov2_model.eval()
         self.models['image_cond_model'] = dinov2_model
         transform = transforms.Compose([

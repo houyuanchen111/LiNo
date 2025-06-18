@@ -45,7 +45,10 @@ import pytorch_lightning as pl
 
 MAX_SEED = np.iinfo(np.int32).max
 TMP_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tmp')
+WEIGHTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'weights')
 os.makedirs(TMP_DIR, exist_ok=True)
+os.makedirs(WEIGHTS_DIR, exist_ok=True)
+
 
 
 
@@ -56,6 +59,7 @@ def cache_weights(weights_dir: str) -> dict:
     os.makedirs(weights_dir, exist_ok=True)
     model_ids = [
         "Stable-X/trellis-normal-v0-1",
+        "houyuanchen/lino"
     ]
     cached_paths = {}
     for model_id in model_ids:
@@ -370,7 +374,7 @@ with gr.Blocks(css="footer {visibility: hidden}") as demo:
 
 if __name__ == "__main__":
     # Download and cache the weights
-    #cache_weights(WEIGHTS_DIR)
+    # cache_weights(WEIGHTS_DIR)
 
     hi3dgen_pipeline = Hi3DGenPipeline.from_pretrained("weights/trellis-normal-v0-1")
     hi3dgen_pipeline.cuda()
