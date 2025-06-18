@@ -266,17 +266,28 @@ You can also use it online. Click [here](https://huggingface.co/spaces/houyuanch
 
 ### 📱 'Photometric Stereo' Your Own Data
 
-Here, we provide a simple way to capture multi-light images. What you need to prepare is:
+Here, we provide a simple way to capture multi-light images. 
+#### Step 1 `Prepare`
+
+What you need to prepare is:
 
 * **Camera:** A smartphone camera is perfectly sufficient, though a dedicated digital camera will also work.
 * **Tripod:** To hold your phone or camera steady and motionless.
 * **Light:** Smartphone's flashlight is enough, others can also be used.
 * **Subject:** The object or scene you want to 'Photometric Stereo'.
+<p align="center">
+  <img src="figures/capture_2.jpg" width="50%" alt="Teaser" style="border-radius:10px;"/>
+</p>
 
+#### Step 2 `Take Photos`
+保持light和subject不动，切换光源的位置拍摄多光照图片。For better performance, 我们推荐4张以上照片
 
+<p align="center">
+  <img src="figures/capture_1.jpg" width="50%" alt="Teaser" style="border-radius:10px;"/>
+</p>
 
-
-
+#### Step 3 `Process and Predict`
+将拍摄好的图片保存为一个目录，再保存到`data\Real_data\`下面such as ...。所拍摄的图片需要保存为`.jpg`,`.JPG`,`.png`的一种，`mask.png` is optional, which can be extracted by   [Konstantin Sofiiuk's software](https://github.com/SamsungLabs/ritm_interactive_segmentation)
 
 
 # 🔖 Citing
