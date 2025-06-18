@@ -209,7 +209,7 @@ After downloading, please place the extracted folders under the `data/Real_data/
 ```bash
 |-- data
 	|-- Real_data
-		A 
+		    A 
         ├── mask.png (optional)
         ├── [Prefix (default: "L")] imgfile1
         ├── [Prefix (default: "L")] imgfile2
@@ -293,7 +293,7 @@ For example:
 ```bash
 |-- data
 	|-- Real_data
-		Your_Object_Name 
+		    Your_Object_Name 
         ├── mask.png (optional)
         ├── L_1.jpg
         ├── L_2.jpg
