@@ -375,7 +375,7 @@ if __name__ == "__main__":
     hi3dgen_pipeline = Hi3DGenPipeline.from_pretrained("weights/trellis-normal-v0-1")
     hi3dgen_pipeline.cuda()
     lino = LiNo_UniPS()
-    lino.from_pretrained("/share/project/cwm/houyuan.chen/UPS_Lightning/src/lino_test.pth")
+    lino.from_pretrained("weights/lino/lino.pth")
   
     demo.launch(share=False, server_name="0.0.0.0")
 
