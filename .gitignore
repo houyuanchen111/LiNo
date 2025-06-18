@@ -7,5 +7,5 @@ data/*/
 demo/*/
 output/*/
 weights/*/
-figures/*
+figures/*git
 *.csv
