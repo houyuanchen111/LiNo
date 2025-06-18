@@ -1,225 +1,295 @@
-# Simulate Any Radar: Attribute-Controllable Radar Simulation via Waveform Parameter Embedding
-
 <div align="center">
-<a href="https://arxiv.org/abs/2506.03134">
-  <img alt="arxiv" src="https://img.shields.io/badge/arXiv-PDF-b31b1b">
-</a>
-<a href="https://zhuxing0.github.io/projects/SA-Radar">
-    <img alt="Project Page" src="assets/badge-website.svg">
-</a>
+<h1>Light of Normals: Unified Feature Representation for Universal Photometric Stereo</h1>
+
+<a href="https://houyuanchen111.github.io/lino.github.io/"><img src="https://img.shields.io/badge/%F0%9F%8F%A0%20Project%20Page-gray.svg"></a>
+<a href="http://arxiv.org/abs/2503.14489"><img src="https://img.shields.io/badge/%F0%9F%93%84%20arXiv-2503.14489-B31B1B.svg"></a>
+<a href="https://huggingface.co/houyuanchen/lino/tree/main"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Model_Card-Huggingface-orange"></a>
+<a href="https://huggingface.co/spaces/houyuanchen/lino"><img src="https://img.shields.io/badge/%F0%9F%9A%80%20Gradio%20Demo-Huggingface-orange"></a>
+
+
+Hong Li\*, Houyuan Chen\*
+<br>
+[Chongjie Ye](https://github.com/hugoycj), [Zhaoxi Chen](https://frozenburning.github.io/), Bohan Li, [Shaocong Xu](https://daniellli.github.io/),[Xianda Guo](https://xiandaguo.net/)
+<br>
+[Xuhui Liu](https://scholar.google.com.hk/citations?user=d4Dg1J4AAAAJ&hl=zh-CN), [Yikai Wang](https://scholar.google.com/citations?user=MnW5aegAAAAJ&hl=pl), [Baochang Zhang](https://scholar.google.com/citations?user=ImJz6MsAAAAJ&hl=zh-CN), [Satoshi Ikehata](https://satoshi-ikehata.github.io/), [Boxin Shi](https://scholar.google.com/citations?user=K1LjZxcAAAAJ&hl=en), [Anyi Rao](https://anyirao.com/), [Hao Zhao](https://scholar.google.com.hk/citations?user=ygQznUQAAAAJ&hl=en), 
+<br>
+<br>
+
+
 </div>
 
-This repo contains the official code of our paper: [Simulate Any Radar: Attribute-Controllable Radar Simulation via Waveform Parameter Embedding](https://arxiv.org/abs/2506.03134).
-
-> Authors: [Weiqing Xiao](https://scholar.google.com.hk/citations?user=v0iwkScAAAAJ&hl=en&oi=sra)<sup>\*</sup>, [Hao Huang](https://github.com/HaoHuang2003)<sup>\*</sup>, [Chonghao Zhong](https://github.com/zchnanguan7)<sup>\*</sup>, Yujie Lin, [Nan Wang](https://bigcileng.github.io/), [Xiaoxue Chen](https://scholar.google.com.hk/citations?hl=en&user=_tz64W0AAAAJ), [Zhaoxi Chen](https://scholar.google.com.hk/citations?hl=en&user=HsV0WbwAAAAJ), [Saining Zhang](https://scholar.google.com.hk/citations?hl=en&user=P4efBMcAAAAJ), [Shuocheng Yang](https://scholar.google.com.hk/citations?hl=en&user=XISZWXgAAAAJ), [Pierre Merriaux](https://scholar.google.com.hk/citations?hl=en&user=NMSccqAAAAAJ), Lei Lei, [Hao Zhao](https://sites.google.com/view/fromandto/)<sup>†</sup>  
-
-## ✨ News
-
-- June 4, 2025: Release paper.
-
-- June 3, 2025: Release checkpoints of ICFAR-Net and downstream models.
-
-- June 1, 2025: Release project page.
-
-## 📊 Overview
-
 <p align="center">
-  <img src="assets/radartop_00.png" alt="Overview" width="100%"/>
+  <img src="figures/teaser.png" width="100%" alt="Teaser" style="border-radius:10px;"/>
 </p>
 
-(a) SA-Radar enables controllable and realistic radar simulation by conditioning on
-customizable radar attributes. It supports flexible scene editing such as attribute modification, actor
-removal, and novel trajectories. (b) SA-Radar improves performance on various tasks including
-semantic segmentation, 2D/3D object detection. In all settings, SA-Radar’s synthetic data either
-matches or surpasses real data, and provides consistent gains when combined with real-world datasets.
-
----
-
-- From left to right are the RGB image and the range-azimuth slices of the radar cube for Ground-Truth, Simulation, Attribute Modification, Actor Removal, and Novel Trajectory.
-
-![gif1](./assets/01.gif)
-
-- Comparison of detection results between the model trained on SA-Radar simulation data and the baseline on real sequences.
-
-![gif2](./assets/html_RADDet_test.gif)
-
--  Comparison of detection results between the model trained on SA-Radar simulation data and the baseline on simulated sequences.
-
-![gif3](./assets/html_RADDet_test_sim.gif)
 
 
-## 🚀 Table of Contents
+# 📊 Overview
 
-- [Environment Setup](#environment-setup)
-- [Dataset Preparation](#Dataset-Preparation)
-- [Evaluate the Pre-train Model](#evaluate-the-pre-train-model)
-- [Train Your Model](#train-your-model)
-- [Run Radar Simulation](#run-radar-simulation)
-- [Downstream Tasks](#downstream-tasks)
+`LiNo-UniPS` is a method for `Univeral Photometric Stereo (PS)`. It predicts the normal map from a given set of images. Key features include:
+* **Light-Agnostic:** Does not require specific lighting parameters as input.
+* **Arbitrary-Resolution:** Supports inputs of any resolution.
+* **Mask-Free:** Also supports mask-free scene normal reconstruction.
 
-### Environment Setup
+# ✨ News
 
-First, create a new Conda environment and specify the Python version:
+- June 2025 - Release paper, project page, Hugging Face demo and model checkpoint. 
+
+# 🔛 Get Started 
+### 💾 Installation
 
 ```bash
-conda create -n SA_Radar python=3.11.9
-conda activate SA_Radar
-pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 --index-url https://download.pytorch.org/whl/cu121
-pip install opencv-python
-pip install scikit-image
-pip install tensorboard==2.12.0
-pip install matplotlib
-pip install tqdm
-pip install timm==0.5.4
-pip install numpy==1.26.4
+git clone https://github.com/houyuanchen111/lino.git
+cd lino
+conda create -n LiNo python=3.10
+conda activate
+pip install -r requirements.txt
 ```
 
-### Dataset Preparation
+### 🔧 Downloading Checkpoint
+Run the script below to download the required model weights.
 
-Please keep the same directory tree as shown in [RADDet dataset](https://github.com/ZhangAoCanada/RADDet?tab=readme-ov-file#DatasetLink) and [Carrada dataset](https://github.com/valeoai/carrada_dataset).
-
-Download the datasets and arrange them as the folloing directory tree,
 ```bash
-|-- RADDet
-	|-- train
-		|-- RAD
-			|-- part1
-				|-- ******.npy
-				|-- ******.npy
-		|-- gt
-			|-- part1
-				|-- ******.pickle
-				|-- ******.pickle
-		|-- stereo_image
-			|-- part1
-				|-- ******.jpg
-				|-- ******.jpg
-	|-- test
-		|-- RAD
-			|-- ***
-		|-- gt
-			|-- ***
-		|-- stereo_image
-			|-- ***
-|-- Carrada
-	|-- Carrada
-		|-- data_seq_ref.json
-		|-- 2019-09-16-12-52-12
-			|-- annotations/box/range_angle_light.json
-			|-- annotations/box/range_doppler_light.json
-		|-- 2019-09-16-12-55-51
-			|-- annotations/box/range_angle_light.json
-			|-- annotations/box/range_doppler_light.json
-		|-- ***
-	|-- datasets_master
-		|-- Carrada_RAD
-			|-- 2019-09-16-12-52-12
-				|-- RAD_numpy
-					|-- 000000.npy
-					|-- 000001.npy
-					|-- ***
-			|-- 2019-09-16-12-55-51
-			|-- ***
+python cache_weight.py
+```
+This script downloads the pre-trained weights for both our LiNo-UniPS and [Hi3DGen](https://stable-x.github.io/Hi3DGen/) models. [Hi3DGen](https://stable-x.github.io/Hi3DGen/) is utilized as a downstream application of LiNo-UniPS.
+
+### 📝 Dataset Preparation
+Download the following benchmarks for evaluate our LiNO-UniPS.
+* [DiLiGenT](https://drive.google.com/open?id=1EgC3x8daOWL4uQmc6c4nXVe4mdAMJVfg): A widely-used benchmark for photometric stereo, consisting of 10 real-world objects with diverse shapes and materials under precisely calibrated directional lighting.
+* [LUCES](https://opendatalab.com/OpenDataLab/LUCES/cli/main): A challenging benchmark focused on complex material properties, captured under thousands of high-frequency lighting conditions from a screen-based setup.
+* [DiLiGent10<sup>2</sup>](https://disk.pku.edu.cn/anyshare/zh-cn/link/AA2725831ED6D74D2396D8338CF434669D?_tb=none&expires_at=2035-04-14T14%3A43%3A48%2B08%3A00&item_type=file&password_required=false&title=DiLiGenT10%5E2_pmsData_release.zip&type=anonymous): The large-scale successor to DiLiGenT, featuring 100 real-world objects with more complex geometries and materials to better evaluate state-of-the-art methods.
+
+After downloading, place them under `data/` as the folloing directory tree.
+```bash
+|-- data
+	|-- DiLiGenT
+		|-- ballPNG
+		...
+	|-- LUCES
+		|-- BALL
+		...
+		
+	|-- DiLiGenT_100
+		|-- BALL_ABS
+		...
+```
+### 🧑‍🏫 Evaluating on Benchmarks 
+To evaluate the performance of LiNO-UniPS on the DiLiGenT, LUCES, and DiLiGenT10² benchmarks, run the corresponding scripts below.
+```bash
+# DiLiGenT
+python eval.py --task_name DiLiGenT --data_root data/DiLiGenT/ --num_images 16 
+
+# LUCES
+python eval.py --task_name LUCES --data_root data/LUCES/ --num_images 16 
+
+# DiLIGenT10²
+python eval.py --task_name DiLiGenT_100 --data_root data/DiLiGenT_100/ --num_images 16
+```
+The evaluation results will be stored in the output directory.
+
+Note for DiLiGenT10²: The ground truth normals for this benchmark are withheld for official evaluation. To get your score, you must submit the predicted results, which are saved in `.mat` format inside the `submit` directory, to the [official evaluation server](https://lab.ybh1998.space:8443/psbenchmarkwebsite/).
+
+
+
+The performance of our released model exceeds the results originally reported in our paper. For this comparison, the results for all competing Universal PS methods ([UniPS](https://github.com/satoshi-ikehata/Universal-PS-CVPR2022), [SDM-UniPS](https://github.com/satoshi-ikehata/SDM-UniPS-CVPR2023), [Uni MS-PS](https://github.com/Clement-Hardy/Uni-MS-PS)) are the best scores as reported by the Uni MS-PS.
+
+<table style="width: 100%; border: none;">
+  <tr style="border: none;">
+    <td style="vertical-align: top; width: 33.3%; border: none; padding: 0 10px 0 0;">
+      <h4>Table 1: DiLiGenT.</h4>
+      <table style="width: 100%;">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Average MAE↓</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>UniPS</td>
+            <td>14.7</td>
+          </tr>
+		  <tr>
+            <td>SDM-UniPS</td>
+            <td>5.80</td>
+          </tr>
+		  <tr>
+            <td>Uni MS-PS</td>
+            <td>4.97</td>
+          </tr>
+		  <tr>
+            <td>LiNo-UniPS (Paper)</td>
+            <td>4.94</td>
+          </tr>
+		  <tr>
+            <td>LiNo-UniPS (Release,K=96)</td>
+            <td><strong>4.74</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+    <td style="vertical-align: top; width: 33.3%; border: none; padding: 0 10px;">
+      <h4>Table 2: LUCES.</h4>
+      <table style="width: 100%;">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Average MAE↓</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>UniPS</td>
+            <td>23.77</td>
+          </tr>
+		  <tr>
+            <td>SDM-UniPS</td>
+            <td>13.50</td>
+          </tr>
+		  <tr>
+            <td>Uni MS-PS</td>
+            <td>11.10</td>
+          </tr>
+		  <tr>
+            <td>LiNo-UniPS (Paper)</td>
+            <td>10.69</td>
+          </tr>
+		  <tr>
+            <td>LiNo-UniPS (Release,K=32)</td>
+            <td><strong>9.47</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+    <td style="vertical-align: top; width: 33.3%; border: none; padding: 0 0 0 10px;">
+      <h4>Table 3: DiLiGenT10².</h4>
+      <table style="width: 100%;">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Average MAE↓</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>UniPS</td>
+            <td>23.79</td>
+          </tr>
+		  <tr>
+            <td>SDM-UniPS</td>
+            <td>14.97</td>
+          </tr>
+		  <tr>
+            <td>Uni MS-PS</td>
+            <td>13.20</td>
+          </tr>
+		  <tr>
+            <td>LiNo-UniPS (Paper)</td>
+            <td>12.21</td>
+          </tr>
+		  <tr>
+            <td>LiNo-UniPS (Release,K=32)</td>
+     		<td><strong>10.84</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</table>
+
+### 🧑🏼‍🏫 Evaluating on Real-World Data (In-the-Wild)
+
+LiNo-UniPS also demonstrates robust performance on multi-light images captured in-the-wild. In the `data/Real_data/` directory, we provide two real-world scenes captured using a unique two-iPhone setup, where one device was used for recording and the other as a movable light source.
+
+For more real-world data captured by camera, you can download from [UniPS](https://satoshi-ikehata.github.io/cvpr2022/univps_cvpr2022.html), [SDM-UniPS](https://www.dropbox.com/scl/fo/fln61xs3xkpeni0mjtzds/ABAhepegwuhB8XGgWf_j5GY?rlkey=558iqt936084b8higxtnyz225&e=1&dl=0). 
+
+After downloading, please place the extracted folders under the `data/Real_data/` directory to match the following structure:
+
+```bash
+|-- data
+	|-- Real_data
+		A 
+        ├── mask.png (optional)
+        ├── [Prefix (default: "L")] imgfile1
+        ├── [Prefix (default: "L")] imgfile2
+        └── ...
+        B 
+        ├── mask.png (optional)
+        ├── [Prefix (default: "L")] imgfile1
+        ├── [Prefix (default: "L")] imgfile2
+        └── ...
 ```
 
-### Evaluate the pre-train models
-```python
-python evaluate.py --restore_ckpt ./models/icfar-net.pth --attribute
-or
-python evaluate.py --restore_ckpt ./models/icfar-net_trained_by_A.pth --attribute
-or
-python evaluate.py --restore_ckpt ./models/icfar-net_trained_by_B.pth --attribute
-or
-python evaluate.py --restore_ckpt ./models/icfar-net_trained_by_C.pth --attribute
+Then, run the following scripts:
+```bash
+# Real_data. If the value provided for --num_images exceeds the total number of available images, the maximum available number will be used instead.
+
+python eval.py --task_name Real --data_root data/Real_data/ --num_images 12 
 ```
+<table>
+  <thead>
+    <tr>
+      <th colspan="2" style="text-align: center;">Captured by iPhone</th>
+      <th colspan="2" style="text-align: center;">Captured by Camera (provided by  <a href="https://satoshi-ikehata.github.io/cvpr2022/univps_cvpr2022.html" target="_blank">UniPS</a>, 
+  <a href="https://www.dropbox.com/scl/fo/fln61xs3xkpeni0mjtzds/ABAhepegwuhB8XGgWf_j5GY?rlkey=558iqt936084b8higxtnyz225&e=1&dl=0" target="_blank">SDM-UniPS</a>)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center;"><img src="figures/basket_iphone.png" alt="Image 1" width="200"></td>
+      <td style="text-align: center;"><img src="figures/key_iphone.png" alt="Image 2" width="200"></td>
+      <td style="text-align: center;"><img src="figures/cable_camera.JPG" alt="Image 3" width="200"></td>
+      <td style="text-align: center;"><img src="figures/tengu_camera.jpg" alt="Image 4" width="200"></td>
+    </tr>
+    <tr>
+      <td style="text-align: center;"><img src="figures/basket_iphone_nml_predict.png" alt="Image 5" width="200"></td>
+      <td style="text-align: center;"><img src="figures/key_iphone_nml_predict.png" alt="Image 6" width="200"></td>
+      <td style="text-align: center;"><img src="figures/cable_camera_nml_predict.png" alt="Image 7" width="200"></td>
+      <td style="text-align: center;"><img src="figures/tengu_camera_nml_predict.png" alt="Image 8" width="200"></td>
+    </tr>
+  </tbody>
+</table>
 
-### Train your model
+### 🚀 Gradio demo
 
-#### prepare for the mixed dataset
-```python
-python make_mixed_dataset_step1.py 
-python make_mixed_dataset_step2.py 
+This gradio demo is a GUI interface that requires no expert knowledge, suitable for general users. Simply run:
+
+```bash
+python app.py
 ```
+You can also use it online. Click [here](https://huggingface.co/spaces/houyuanchen/lino).
 
-#### train and eval your model on the mixed dataset
-```python
-python train.py --logdir ./checkpoints/icfar_mixed_bs3_lr0.0002_50e --train_datasets raddet carrada raddet_by_mr --attribute --segment_mask_loss --l1_loss --sml1_loss
-python evaluate.py --restore_ckpt ./checkpoints/icfar_mixed_bs3_lr0.0002_50e/icfar-net.pth --attribute
-```
 
-### Run-radar-simulation
 
-#### run radar simulation on RADDet train set
-```python
-python demo.py --restore_ckpt ./models/icfar-net.pth --save_numpy --version train --attribute
-or 
-python demo.py --restore_ckpt ./checkpoints/icfar_mixed_bs3_lr0.0002_50e/icfar-net.pth --save_numpy --version train --attribute
-```
-#### run radar simulation on NuScene v1 mini
-```python
-python demo_on_NuScenes.py --restore_ckpt ./models/icfar-net.pth --attribute --time_steps 100
-or
-python demo_on_NuScenes.py --restore_ckpt ./models/icfar-net_wo-re.pth --time_steps 100
-```
 
-#### Scene Editing
 
-##### Attribute Modification
+### 📱 'Photometric Stereo' Your Own Data
 
-Modify the *attribute_list* in `demo.py` directly.
+Here, we provide a simple way to capture multi-light images. What you need to prepare is:
 
-##### Novel Trajectories
-```python
-python demo.py --restore_ckpt ./models/icfar-net.pth --save_numpy --version train --attribute --angle_rotation
-```
+* **Camera:** A smartphone camera is perfectly sufficient, though a dedicated digital camera will also work.
+* **Tripod:** To hold your phone or camera steady and motionless.
+* **Light:** Smartphone's flashlight is enough, others can also be used.
+* **Subject:** The object or scene you want to 'Photometric Stereo'.
 
-##### Actor Removal
-```python
-python demo.py --restore_ckpt ./models/icfar-net.pth --save_numpy --version train --attribute --remove
-```
 
-### Downstream Tasks
 
-We provide pre-trained weights of the models on different downstream tasks in the [downstream_ckps](downstream_ckps) folder, including real-data-trained, simulated-data-trained, and co-trained versions.
 
-#### Running a Pre-trained Model and Training Your Downstream Model
 
-After running `demo.py`, the generated simulation data is saved to the `./sim_output` folder (set via *--output_directory*). The simulation data format is identical to the RADDet dataset, which you can use to train your downstream model.
 
-For 3D detection, copy `./downstream_ckps/RADDet_Pytorch/*` files and the checkpoints from `./downstream_ckps/3d-det` folder into [RADDet_Pytorch](https://github.com/auroua/RADDet_Pytorch) and run:
-```python
-# Running a Pre-trained Model with a RAD head on RADDet or Carrada
-python validate_SA_Radar.py --dataset RADDET --config_dir ./configs/config_simraddet_1000e_final.json --resume_from {RAD_ckp_path}
-python validate_SA_Radar.py --dataset CARRADA --config_dir ./configs/config_simcarrada_1000e_final.json --resume_from {RAD_ckp_path}
 
-# Training Your Model with a RAD head on RADDet or Carrada
-python train_SA_Radar.py --dataset RADDET --config_dir ./configs/config_simraddet_1000e_final.json --add_train_dir {sim_data_path}(optional)
-python train_SA_Radar.py --dataset CARRADA --config_dir ./configs/config_simcarrada_1000e_final.json --add_train_dir {sim_data_path}(optional)
+# 🔖 Citing
 
-# Running a Pre-trained Model with a RA head on RADDet or Carrada (To be uploaded)
-python validate_cart_SA_Radar.py --dataset RADDET --config_dir ./configs/config_simraddet_1000e_final.json --resume_from {RA_ckp_path}
-python validate_cart_SA_Radar.py --dataset CARRADA --config_dir ./configs/config_simcarrada_1000e_final.json --resume_from {RA_ckp_path}
-
-# Training Your Model with a RA head on RADDet or Carrada (To be uploaded)
-python train_cart_SA_Radar.py --dataset RADDET --config_dir ./configs/config_simraddet_1000e_final.json --backbone_resume_from {RAD_ckp_path} --add_train_dir {sim_data_path}(optional)
-python train_cart_SA_Radar.py  --dataset CARRADA --config_dir ./configs/config_simcarrada_1000e_final.json --backbone_resume_from {RAD_ckp_path} --add_train_dir {sim_data_path}(optional)
+If you find this repository useful, please consider giving a star :star: and citation.
 
 ```
-
-For 2D detection (RD), copy the config and checkpoint files from `./downstream_ckps/2d-det (RTMDet Model on mmdet)` folder into [mmdetection](https://github.com/open-mmlab/mmdetection), and run:
-```python
-python tools/test.py --config configs/{config.py} --checkpoint work_dirs/{model.pth}
-```
-
-# 🤝 Citation
-
-If you find this repository helpful, please consider citing our paper:
-
-```bibtex
-@article{xiao2025simulate,
-  title={Simulate Any Radar: Attribute-Controllable Radar Simulation via Waveform Parameter Embedding},
-  author={Xiao, Weiqing and Huang, Hao and Zhong, Chonghao and Lin, Yujie and Wang, Nan and Chen, Xiaoxue and Chen, Zhaoxi and Zhang, Saining and Yang, Shuocheng and Merriaux, Pierre and others},
-  journal={arXiv preprint arXiv:2506.03134},
-  year={2025}
+@article{zhou2025stable,
+    title={Stable Virtual Camera: Generative View Synthesis with Diffusion Models},
+    author={Jensen (Jinghao) Zhou and Hang Gao and Vikram Voleti and Aaryaman Vasishta and Chun-Han Yao and Mark Boss and
+    Philip Torr and Christian Rupprecht and Varun Jampani
+    },
+    journal={arXiv preprint arXiv:2503.14489},
+    year={2025}
 }
 ```

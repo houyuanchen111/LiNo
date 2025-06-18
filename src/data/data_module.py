@@ -148,12 +148,13 @@ class TestData(Dataset):
                     if not os.path.basename(path).lower() == "mask.png"
                 ])           
         elif "LUCES" in obj_path:
-            scale = 1.0
             nml_path = os.path.join(obj_path, "normals.png")
             directlist = sorted([
                 f for i in range(1, 52) for f in glob.glob(os.path.join(obj_path, f"{i:02d}*"))
             ])
-            
+        elif "Real" in obj_path:
+            nml_path = os.path.join(obj_path, "Normal_gt.png")
+            directlist = sorted(glob.glob(os.path.join(obj_path, f"L*")))
         else:
             print(f"error:unknown dataset{obj_path}")
             return 0
@@ -181,7 +182,10 @@ class TestData(Dataset):
             if i == 0:
                          
                 mask_path = os.path.join(obj_path, "mask.png")
-                mask = cv2.imread(mask_path, cv2.IMREAD_GRAYSCALE) / 255.0
+                if os.path.exists(mask_path):
+                    mask = cv2.imread(mask_path, cv2.IMREAD_GRAYSCALE) / 255.0
+                else:
+                    mask = np.ones_like(read_img)[:,:,0]
                 
                 if os.path.exists(nml_path):
                     bit_depth = 65535.0 if "LUCES" in obj_path else 255.0
@@ -210,7 +214,7 @@ class TestData(Dataset):
         temp = np.mean(I[:, mask.flatten()==1,:], axis=2)
         mean = np.mean(temp, axis=1) 
         mx = np.max(temp, axis=1)
-        scale = np.random.rand(self.numberOfImages,) 
+        scale = np.random.rand(I.shape[0],) 
         temp = (1-scale) * mean + scale * mx 
         imgs_ /= (temp.reshape(-1,1,1,1) + 1.0e-6)
         I = imgs_
@@ -221,7 +225,7 @@ class TestData(Dataset):
         self.h = h
         self.w = w
         self.I = I #
-        if "DiLiGenT" in obj_path and "10" in obj_path: # diligent100
+        if ("DiLiGenT" in obj_path and "10" in obj_path) or "Real" in obj_path: # diligent100
             self.N = np.ones((h,w,3,1)) 
         else:
             self.N = n_true[:,:,:,np.newaxis] 

@@ -88,7 +88,7 @@ class LiNo_UniPS(pl.LightningModule):
         save_path = os.path.join(save_dir,f'{self.numberofImages}',f'{obj_name}')
         os.makedirs(save_path, exist_ok=True)
         print(f"save to: {save_path}")
-        if "DiLiGenT_100" not in self.task_name:
+        if ("DiLiGenT_100" not in self.task_name) and ("Real" not in self.task_name):
             nout_to_save = (nout + 1) / 2
             nml_gt_to_save = (nml_gt + 1) / 2
             
@@ -121,11 +121,12 @@ class LiNo_UniPS(pl.LightningModule):
                 
             print(f"Done for {obj_name}")
         else:
-            from scipy.io import savemat
-            mat_save_path = os.path.join(os.path.dirname(save_path),"submit")
-            os.makedirs(mat_save_path,exist_ok=True)
-            normal_map = nout
-            savemat(mat_save_path + "/" + obj_name + '.mat',  {'Normal_est': normal_map})
+            if "DiLiGenT_100" in self.task_name:
+                from scipy.io import savemat
+                mat_save_path = os.path.join(os.path.dirname(save_path),"submit")
+                os.makedirs(mat_save_path,exist_ok=True)
+                normal_map = nout
+                savemat(mat_save_path + "/" + obj_name + '.mat',  {'Normal_est': normal_map})
             torchvision.utils.save_image(img.squeeze(0).permute(3,0,1,2), save_path + '/tiled.png')
             nout = (nout + 1) / 2 
             plt.imsave(save_path + '/nml_predict.png', nout)
@@ -138,7 +139,7 @@ class LiNo_UniPS(pl.LightningModule):
 
       
         nout, nml_gt, mask_gt = self._postprocess_prediction(nml_predict, nml_gt, roi)
-        if "DiLiGenT_100" not in self.task_name:
+        if ("DiLiGenT_100" not in self.task_name) and ("Real" not in self.task_name):
             loss, mae, emap = self._calculate_and_log_metrics(nout, nml_gt, mask_gt)
             print(f"{os.path.basename(os.path.dirname(directlist[0][0]))} | MAE: {mae:.4f}")
             self._save_test_results(nout, nml_gt, emap, img, loss, mae, directlist, self.run_save_dir)
@@ -209,8 +210,13 @@ class LiNo_UniPS(pl.LightningModule):
             W = decoder_imgsize[1]     
             nout = torch.zeros(B, H * W, 3).to(I.device)
             f_scale = decoder_resolution//canonical_resolution 
-            smoothing = gauss_filter.gauss_filter(glc.shape[1], 10 * f_scale+1, 1).to(glc.device) 
-            glc = smoothing(glc)
+            smoothing = gauss_filter.gauss_filter(glc.shape[1], 10 * f_scale+1, 1).to(glc.device)
+            chunk_size = 16
+            processed_chunks = []
+            for glc_chunk in torch.split(glc, chunk_size, dim=0):
+                smoothed_chunk = smoothing(glc_chunk)
+                processed_chunks.append(smoothed_chunk)
+            glc = torch.cat(processed_chunks, dim=0) 
             del M
             _, _, H, W = I_dec.shape         
             p = 0
