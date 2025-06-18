@@ -43,6 +43,7 @@ from src.models import LiNo_UniPS
 from torch.utils.data import DataLoader
 import pytorch_lightning as pl
 
+
 MAX_SEED = np.iinfo(np.int32).max
 TMP_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tmp')
 WEIGHTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'weights')
@@ -193,10 +194,10 @@ with gr.Blocks(css="footer {visibility: hidden}") as demo:
                     <a title="Website" href="https://houyuanchen111.github.io/lino.github.io/" target="_blank" rel="noopener noreferrer" style="display: inline-block;">
                         <img src="https://www.obukhov.ai/img/badges/badge-website.svg">
                     </a>
-                    <a title="arXiv" href="https://stable-x.github.io/Hi3DGen/hi3dgen_paper.pdf" target="_blank" rel="noopener noreferrer" style="display: inline-block;">
-                        <img src="https://www.obukhov.ai/img/badges/badge-pdf.svg">
+                    <a title="arXiv" href="" target="_blank" rel="noopener noreferrer" style="display: inline-block;">
+                        <img src="https://img.shields.io/badge/Github-Page-black">
                     </a>
-                    <a title="Github" href="https://github.com/Stable-X/Hi3DGen" target="_blank" rel="noopener noreferrer" style="display: inline-block;">
+                    <a title="Github" href="https://github.com/houyuanchen111/LiNo" target="_blank" rel="noopener noreferrer" style="display: inline-block;">
                         <img src="https://img.shields.io/github/stars/Stable-X/Hi3DGen?label=GitHub%20%E2%98%85&logo=github&color=C8C" alt="badge-github-stars">
                     </a>
               
@@ -341,8 +342,7 @@ with gr.Blocks(css="footer {visibility: hidden}") as demo:
     display_data = [
 
         [Image.open("demo/basket/demo.png"), "basket", 8, False, False, "Real","960*960"],
-        [Image.open("demo/key/demo.png"), "key", 9, False, False, "Real","512*612"],
-        [Image.open("demo/ball/demo.png"), "ball", 96, True, True, "Real","512*612"],
+        [Image.open("demo/key/demo.png"), "key", 8, False, False, "Real","640*640"],
         [Image.open("demo/canandwood/demo.png"), "canandwood", 18, True, False, "Real","4032*2268"],
         [Image.open("demo/cat/demo.png"), "cat", 96, True, True, "Real","512*612"],
         [Image.open("demo/coins_and_keyboard/demo.png"), "coins_and_keyboard", 12, False, False, "Real","4000*4000"],
@@ -374,7 +374,7 @@ with gr.Blocks(css="footer {visibility: hidden}") as demo:
 
 if __name__ == "__main__":
     # Download and cache the weights
-    # cache_weights(WEIGHTS_DIR)
+    cache_weights(WEIGHTS_DIR)
 
     hi3dgen_pipeline = Hi3DGenPipeline.from_pretrained("weights/trellis-normal-v0-1")
     hi3dgen_pipeline.cuda()
