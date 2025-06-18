@@ -3,7 +3,7 @@ __pycache__/
 *$py.class
 .vscode/*
 *.sh
-data/*
-demo/*
-weights/*
+data/*/
+demo/*/
+weights/*/
 
