@@ -267,7 +267,7 @@ You can also use it online. Click [here](https://huggingface.co/spaces/houyuanch
 ### 📱 'Photometric Stereo' Your Own Data
 
 Here, we provide a simple way to capture multi-light images. 
-#### Step 1 `Prepare`
+#### Step 1. `Prepare`
 
 What you need to prepare is:
 
@@ -279,16 +279,27 @@ What you need to prepare is:
   <img src="figures/capture_2.jpg" width="50%" alt="Teaser" style="border-radius:10px;"/>
 </p>
 
-#### Step 2 `Take Photos`
-保持light和subject不动，切换光源的位置拍摄多光照图片。For better performance, 我们推荐4张以上照片
+#### Step 2. `Take Photos`
+Keep the **camera** and the **subject** stationary. Capture multiple images by moving the light source to a different position for each shot. For best results, we recommend capturing 4 or more images.
 
 <p align="center">
   <img src="figures/capture_1.jpg" width="50%" alt="Teaser" style="border-radius:10px;"/>
 </p>
 
-#### Step 3 `Process and Predict`
-将拍摄好的图片保存为一个目录，再保存到`data\Real_data\`下面such as ...。所拍摄的图片需要保存为`.jpg`,`.JPG`,`.png`的一种，`mask.png` is optional, which can be extracted by   [Konstantin Sofiiuk's software](https://github.com/SamsungLabs/ritm_interactive_segmentation)
+#### Step 3. `Process and Predict`
+Organize your captured images into a new folder and place it inside the `data/Real_data/` directory. The images should be saved in `.jpg` or `.png` format. 
+For example:
 
+```bash
+|-- data
+	|-- Real_data
+		Your_Object_Name 
+        ├── mask.png (optional)
+        ├── L_1.jpg
+        ├── L_2.jpg
+        └── ...
+```
+ `mask.png` is optional. If needed, it can be generated using [Konstantin Sofiiuk's software](https://github.com/SamsungLabs/ritm_interactive_segmentation).
 
 # 🔖 Citing
 
