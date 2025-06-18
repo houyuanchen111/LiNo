@@ -4,7 +4,6 @@ __pycache__/
 .vscode/*
 *.sh
 data/*/
-demo/*/
 output/*/
 weights/*/
 figures/*git
