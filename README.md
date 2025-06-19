@@ -293,7 +293,7 @@ For example:
 ```bash
 |-- data
 	|-- Real_data
-    Your_Object_Name 
+          Your_Object_Name 
           ├── mask.png (optional)
           ├── L_1.jpg
           ├── L_2.jpg
