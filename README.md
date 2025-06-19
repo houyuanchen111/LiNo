@@ -253,7 +253,9 @@ python eval.py --task_name Real --data_root data/Real_data/ --num_images 12
 
 ### 🚀 Gradio demo
 
-This gradio demo is a GUI interface that requires no expert knowledge, suitable for general users. Simply run:
+This gradio demo is a GUI interface that requires no expert knowledge, suitable for general users. To run the demo, first download the required data from [this link](https://drive.google.com/file/d/1IrJ7s4qBEqfGo4AmHh7n54ZmB5as06mY/view?usp=sharing). Then, unzip the archive and place its contents into the `demo/` directory.
+
+Simply run:
 
 ```bash
 python app.py
