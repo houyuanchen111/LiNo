@@ -299,7 +299,7 @@ For example:
           ├── L_2.jpg
           └── ...
 ```
- `mask.png` is optional. If needed, it can be generated using [Konstantin Sofiiuk's software](https://github.com/SamsungLabs/ritm_interactive_segmentation).
+ `mask.png` is optional. If needed, it can be generated using [RMBG-2.0](https://huggingface.co/spaces/briaai/BRIA-RMBG-2.0).
 
 # 🔖 Citing
 
