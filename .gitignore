@@ -3,7 +3,6 @@ __pycache__/
 *$py.class
 .vscode/*
 *.sh
-data/*/
 output/*/
 weights/*/
 figures/*git
