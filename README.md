@@ -42,7 +42,7 @@ Hong Li\*, Houyuan Chen\*
 git clone https://github.com/houyuanchen111/lino.git
 cd lino
 conda create -n LiNo python=3.10
-conda activate
+conda activate LiNo
 pip install -r requirements.txt
 ```
 
